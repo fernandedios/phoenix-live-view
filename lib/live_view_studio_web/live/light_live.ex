@@ -41,6 +41,21 @@ defmodule LiveViewStudioWeb.LightLive do
     {:noreply, socket}
   end
 
+  def handle_event("up", _, socket) do
+    # brightness = socket.assigns.brightness + 10
+    # socket = assign(socket, :brightness, brightness)
+
+    ## use update instead, accepts a func
+    ## use anon func to bump brightness by 10 instead
+    socket = update(socket, :brightness, &(&1 + 10))
+    {:noreply, socket}
+  end
+
+  def handle_event("down", _, socket) do
+    socket = update(socket, :brightness, &(&1 - 10))
+    {:noreply, socket}
+  end
+
   def handle_event("off", _, socket) do
     socket = assign(socket, :brightness, 0)
     {:noreply, socket}
